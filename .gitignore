@@ -13,3 +13,5 @@ features
 node_modules
 test-results
 index.html
+@rerun.txt
+dist

@@ -1,43 +1,63 @@
-import { Before, After, BeforeAll, AfterAll, BeforeStep, AfterStep, Status } from "@cucumber/cucumber";
-import { chromium, Browser, Page, BrowserContext } from "@playwright/test";
+import { Before, After, BeforeAll, AfterAll, AfterStep, Status } from "@cucumber/cucumber";
+import { chromium, Browser, BrowserContext, Page } from "@playwright/test";
 import { pageFixture } from "./pageFixture";
 
 let browser: Browser;
 let context: BrowserContext;
 
 BeforeAll(async () => {
-  browser = await chromium.launch({ headless: false });
-})
+  // Launch the browser before all tests
+  console.log("Launching browser...");
+  browser = await chromium.launch({ headless: false }); // Change to `headless: true` for CI/CD environments
+});
 
 Before(async function () {
-  console.log('Before every test launch');
+  console.log("Setting up a new browser context and page...");
+  // Create a new browser context and page before every scenario
   context = await browser.newContext();
   const page = await context.newPage();
   pageFixture.page = page;
 });
 
-AfterStep(async function ({ pickle, result }) { 
-  console.log('After every step close');
-  console.log(result?.status);
-  console.log(pickle.steps[pickle.steps.length - 1].text);
-});
+AfterStep(async function ({ pickle, result }) {
+  console.log("After every step...");
+  console.log(`Step Status: ${result?.status}`);
+  console.log(`Step Text: ${pickle.steps[pickle.steps.length - 1]?.text}`);
 
-After(async function ({ pickle, result }) {
-  console.log('After every test close');
+  /*if (result?.status === Status.FAILED) {
+    console.log("Capturing screenshot for failed step...");
+    const screenshot = await pageFixture.page.screenshot();
+    this.attach(screenshot, "image/png"); // Attach screenshot to the Cucumber report
+  }*/
+    console.log("Capturing screenshot for failed step...");
+    const screenshot = await pageFixture.page.screenshot();
+    this.attach(screenshot, "image/png"); // Attach screenshot to the Cucumber report
+}); 
 
-  //Time stamp and other values can be added here as well to the report
-  console.log(result?.status);
+/*After(async function ({ pickle, result }) {
+  console.log("After every test...");
+  console.log(`Test Status: ${result?.status}`);
 
-  if (result?.status == Status.FAILED) {  // Attach screenshot to the report
-    const img = await pageFixture.page.screenshot({ path: `./test-result/screenshots/${pickle.name}.png` });
-    await this.attach(img, 'image/png');
+  // Capture screenshot for failed scenarios
+  if (result?.status === Status.FAILED) {
+    console.log(`Capturing screenshot for failed test: ${pickle.name}`);
+    const screenshotPath = `./test-result/screenshots/${pickle.name.replace(/[^a-z0-9]/gi, "_")}.png`;
+    await pageFixture.page.screenshot({ path: screenshotPath });
+    console.log(`Screenshot saved at: ${screenshotPath}`);
   }
 
-  await pageFixture.page.close();
-  await context.close();
-});
+  // Close page and context
+  if (pageFixture.page && !pageFixture.page.isClosed()) {
+    await pageFixture.page.close();
+  }
+  if (context) {
+    await context.close();
+  }
+});*/
 
 AfterAll(async () => {
-  console.log('After all tests close');
-  await browser.close();
+  console.log("Closing browser after all tests...");
+  if (browser) {
+    await browser.close();
+  }
 });

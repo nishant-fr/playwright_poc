@@ -18,3 +18,15 @@ Extenstions, edit in settings.json
 
 https://github.com/WasiqB/multiple-cucumber-html-reporter
 for charts reports
+
+npm run tes
+npum run test:failed to rerun the failed tests
+
+https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md
+
+to make sure the folders are created if not exists
+
+npm i fs-extra -D
+
+   /*      "parallel": 2,
+        "retry": 1 */
