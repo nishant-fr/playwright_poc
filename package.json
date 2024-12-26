@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.1.1",
+    "multiple-cucumber-html-reporter": "^3.8.0",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "test": "cucumber-js test || true",
+    "posttest": "npx ts-node src/helper/report.ts"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.49.1"
+  }
+}
