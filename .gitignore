@@ -3,3 +3,7 @@
 */node_modules/
 */test-result/
 */test-results/
+./test-results/
+./assets/
+./features/
+./node_modules/
