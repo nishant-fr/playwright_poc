@@ -7,3 +7,8 @@
 ./assets/
 ./features/
 ./node_modules/
+node_modules
+assets
+features
+node_modules
+test-results
