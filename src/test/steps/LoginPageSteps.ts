@@ -2,9 +2,11 @@ import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber";
 import { chromium, Page, Browser, expect } from "@playwright/test";
 import { pageFixture } from '../../hooks/pageFixture';
 import LoginPage from "../pages/LoginPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 setDefaultTimeout(60 * 1000);
 let loginPage: LoginPage;
+let resetPasswordPage: ResetPasswordPage;
 
 Given('the user is on the login page', async function () {
   loginPage = new LoginPage(pageFixture.page);
@@ -32,39 +34,39 @@ Then('the user should be redirected to the homepage', async function () {
 
 
 When('the user enters an invalid email address', async function () {
-
+  await pageFixture.page.waitForTimeout(1000);
+  loginPage.enterEmail('typescript@playwright.c');
 });
 
-Then('the user should see an error message {string}', async function (string) {
-
+Then('the user should see an error message {string}', async function (errorMessage: string) {
+  resetPasswordPage = new ResetPasswordPage(pageFixture.page);  
+  expect(resetPasswordPage.isErrorMessageVisible(errorMessage));
 });
 
 When('the user enters an unregistered email address', async function () {
-
+  await pageFixture.page.waitForTimeout(1000);
+  loginPage.enterEmail('uknown@user.com');
 });
 
-Then('the user should see an error message {string}', async function (string) {
-
-});
 
 When('the user leaves the email field empty under reset password page', async function () {
-
+  await pageFixture.page.waitForTimeout(1000);
+  loginPage.enterEmail('');
 });
 
-Then('the user should see an error message {string}', async function (string) {
-
-});
 
 When('the user clicks the LOGIN link at the top under reset password page', async function () {
-
+  resetPasswordPage = new ResetPasswordPage(pageFixture.page);  
+  resetPasswordPage.clickLoginButton();
 });
 
 Then('the user should be redirected to the login page', async function () {
-
+  loginPage.isLoginPageVisible();
 });
 
 When('the user clicks the REGISTER link at the top under reset password page', async function () {
-
+  resetPasswordPage = new ResetPasswordPage(pageFixture.page);  
+  resetPasswordPage.clickRegisterButton();
 });
 
 Then('the user should be redirected to the registration page', async function () {
