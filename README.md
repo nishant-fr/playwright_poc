@@ -1,32 +1,20 @@
-## Description
-This application is a full-stack web application designed to manage user authentication and profile management. The frontend is built using React and TypeScript, while the backend is developed with Node.js and Express. The application provides a seamless user experience for managing personal information and accessing various features securely.
+install Playwright plugin for windows
+install Cucumber plugin for windows
+install dependencies
 
-### Features
-- User registration and login
-- Profile management
-- Password reset functionality
-- Responsive and user-friendly interface
+npm i @cucumber/cucumber -D
+npm i ts-node -D
 
-## Technologies Used
-- **Frontend**: 
-  - React
-  - TypeScript
-  - Material-UI
-  - Axios
-- **Backend**: 
-  - Node.js
-  - Express
-  - MongoDB
-  - JSON Web Tokens (JWT) for authentication
-- **Deployment**: 
-  - Docker
-  - Nginx (for serving the frontend)
+create folder structure
 
-## Getting Started
-To get a local copy up and running, follow these steps:
+- src - tests
+				- features - login.feature
+				- steps - login.ts
+				
+create cucumber configuration by creating cucumber.json under root folder
 
-cd your-repo
+To make step definitions mapped, under Cucumber plaugin, navigate to 
+Extenstions, edit in settings.json
 
-docker compose up --build
-
-Open [http://localhost:8090](http://localhost:8090) to view it in the browser.
+https://github.com/WasiqB/multiple-cucumber-html-reporter
+for charts reports
