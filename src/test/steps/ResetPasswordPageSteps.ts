@@ -13,7 +13,7 @@ When('the user clicks the {string} link', async function (string) {
 });
 
 When('the user enters a valid email address', async function () {
-    //enterEmailReset app@testing.com
+    loginPage.enterEmail("app@testing.com");
 });
 
 When('clicks the {string} button in reset password page', async function (string) {
@@ -21,7 +21,6 @@ When('clicks the {string} button in reset password page', async function (string
     resetPasswordPage.clickSendResetLinkButton();
 });
 
-Then('a confirmation message {string} should be displayed', async function (string) {
-    
+Then('a confirmation message {string} should be displayed', async function (alertMessage: string) {
+    await resetPasswordPage.isAlertMessageVisible(alertMessage);
 });
-

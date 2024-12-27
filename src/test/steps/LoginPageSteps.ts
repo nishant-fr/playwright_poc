@@ -39,8 +39,15 @@ When('the user enters an invalid email address', async function () {
 });
 
 Then('the user should see an error message {string}', async function (errorMessage: string) {
-  resetPasswordPage = new ResetPasswordPage(pageFixture.page);  
-  expect(resetPasswordPage.isErrorMessageVisible(errorMessage));
+  resetPasswordPage = new ResetPasswordPage(pageFixture.page);
+
+  // Ensure the page is not closed before interacting with it
+  if (pageFixture.page.isClosed()) {
+    throw new Error("The page is closed and cannot be interacted with.");
+  }
+
+  await pageFixture.page.waitForTimeout(1000);
+  expect(await resetPasswordPage.isAlertMessageVisible(errorMessage)).toBeTruthy();
 });
 
 When('the user enters an unregistered email address', async function () {
@@ -70,5 +77,10 @@ When('the user clicks the REGISTER link at the top under reset password page', a
 });
 
 Then('the user should be redirected to the registration page', async function () {
+  resetPasswordPage = new ResetPasswordPage(pageFixture.page);
+  resetPasswordPage.isRegisterPageVisible();
+});
 
+Given('the user clicks the {string} button', async function (string) {
+  loginPage.clickRegisterButton();
 });

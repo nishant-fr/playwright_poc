@@ -12,6 +12,7 @@
     "test:failed": "cucumber-js -p rerun @rerun.txt"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@playwright/test": "^1.49.1"
   }
 }
