@@ -153,3 +153,13 @@ Configure the following in the `cucumber.json` file to enable parallel test runs
 This configuration ensures:
 - Parallel execution of two tests at a time.
 - Failed scenarios are retried once before marking them as failed.
+
+
+### 7. TODO Update documentation
+Using Faker Library to generate random values
+npm install @faker-js/faker
+to inspect elements use following
+npx playwright codegen http://localhost:8090/register
+to debug -> $env:DEBUG="pw:api"; npm run test
+
+TODO add maximise window option
