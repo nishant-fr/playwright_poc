@@ -66,6 +66,7 @@ npm i @cucumber/cucumber -D
 npm i ts-node -D
 npm install multiple-cucumber-html-reporter --save-dev
 npm i fs-extra -D
+npm install @faker-js/faker
 ```
 
 After installing the Cucumber plugin in VS Code, edit `settings.json` to glue the `features` and `steps` folders as per the project structure outlined below.
@@ -155,11 +156,10 @@ This configuration ensures:
 - Failed scenarios are retried once before marking them as failed.
 
 
-### 7. TODO Update documentation
-Using Faker Library to generate random values
-npm install @faker-js/faker
-to inspect elements use following
+### 7. To Debug tests
+```bash
 npx playwright codegen http://localhost:8090/register
-to debug -> $env:DEBUG="pw:api"; npm run test
-
+$env:DEBUG="pw:api"
+npm run test
+```
 TODO add maximise window option
